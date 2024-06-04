@@ -1,81 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Document</title>
-</head>
-<body>
-    <table class="table table-bordered container my-5">
-        <thead>
-            <tr>
-                <th>SNO</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Images</th>
-            </tr>
-            <tbody id="tbody">
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </thead>
-    </table>
+  <head>
+    <title>Cart</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
-    <!-- boostrap js cdn -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <style>
+      body {
+        overflow-x: hidden;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Dropdown
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link disabled"
+                href="#"
+                tabindex="-1"
+                aria-disabled="true"
+                >Disabled</a
+              >
+            </li>
+          </ul>
+          <button
+            type="button"
+            class="btn position-relative"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            <h1><i class="fa-solid fa-cart-shopping"></i></h1>
+            <span
+              id="cardLength"
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+            >
+              0
+              <span class="visually-hidden">unread messages</span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">cart</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <ol id="card-items">
+              <!-- <li>infinix | RS 40000 <button class="btn btn-info text-white">+</button><span> 1 </span><button class="btn btn-info text-white">-</button></li>           -->
+            </ol>
+            <h3>Total # <span id="totalBill"></span></h3>
+            <button id="clearCart" onclick="clearCart()" class="btn btn-info text-white">
+              Clear All
+            </button>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container my-5">
+      <div class="row my-5">
+        <!-- <div class="col-3 mt-2">
+          <div class="card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr5GBtyMgK9jY4gMDXKfIuZc4D0ZiPEHlAgBiJXnY5kuo50HPdIBNMIy5EOKvHR2pV0kI&usqp=CAU" alt="">
+            <div class="d-flex flex-column align-items-center">
+              <h3 class="text-center">Iphone</h3>
+              <p class="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci, ratione!</p>
+              <p class="text-center">50000</p>
+              <button class="btn btn-primary">add to cart</button>
+
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+
     <script>
+      let arr = [
+        {
+          name: "Techno spark 6",
+          price: "40000",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHrcJFaR-Cxo4gaufjpags3ftcY6Fdlu94Wd6WycVl7vxMqgQTFTpfGY9Tz4u_u6_nV-o&usqp=CAU",
+        },
+        {
+          name: "Iphone-15-pro-max",
+          price: "270000",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh-lV2FqANT09e8TBDgtgzRQ_JVgDx_KBP9ohIG9TIFAiV62l64T6A5AEL7c1c7Jl3Ir4&usqp=CAU",
+        },
+        {
+          name: "infinix note 30",
+          price: "42999",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8O1vEVoZs7YJUP3wdQ3zn_YuUv_lG2gRIBDjalwn53FEDqgKq5-1FbwOI4LHYT_xiv94&usqp=CAU",
+        },
+        {
+          name: "samsung galaxy S22 Ultra",
+          price: "399999",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGARetaWflaIZ4HvLeS9Deo6dzjmf2RGz9ZMqaEseHfG8DJn3nDOBVz8_Xf_-WlebYChI&usqp=CAU",
+        },
+        {
+          name: "Redme 12",
+          price: "35000",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpHkaYNdcDWnDu2IGbUCiIKbk2qeXXOAqNWIlpAZgljo69x0lyKv1igaPF4KUFVbD-cqU&usqp=CAU",
+        },
+        {
+          name: "realme c25-y",
+          price: "25000",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR11sQaXCqX4oNExOHmwC5dIX-LrR0G9r9P-mBAB9OTC4o1nPtswpTtOUc7pqHlOLw2fRQ&usqp=CAU",
+        },
+        {
+          name: "sony Xperia 5",
+          price: "28499",
+          image:
+            "https://images-cdn.ubuy.co.in/6610190b4aef9b321c42c0b2-sony-xperia-5-unlocked-smartphone.jpg",
+        },
+        {
+          name: "oppo A31",
+          price: "29999",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIo1RQTKswRMV6yPKTm-ERDT82jtoLfe-_bqI2yc16PTNmBnU3MsHKCYqG1itrcROrP-Q&usqp=CAU",
+        },
+        {
+          name: "oppo A31",
+          price: "29999",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIo1RQTKswRMV6yPKTm-ERDT82jtoLfe-_bqI2yc16PTNmBnU3MsHKCYqG1itrcROrP-Q&usqp=CAU",
+        },
+        {
+          name: "huawei y9",
+          price: "37999",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEsYmb3lJVon1_xLaFMDz_sZbTyPY6wSrSoBWXuvO0RhKXNFfDrlyOfY15qObkk5MHOZQ&usqp=CAU",
+        },
+        {
+          name: "vivo v29",
+          price: "89999",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6gEBR61e7DjuJnnuVAamXJLgIZX6ZqdAPK1TY9j-w4CXNK8M57mWoVLJaKSpKql3yQ4g&usqp=CAU",
+        },
+        {
+          name: "NOkia window",
+          price: "24999",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQB6Psv3QTdCCRzh2_3rlrbCPkFXZhrExXMxxR3It2usZQ69SlBUxKM_6XJpBfNj8Vn_ZU&usqp=CAU",
+        },
+      ];
 
-       
-            let arr = [
-    {
-        name : 'Techno',
-        price : '40000',
-        image : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3xYFZh5xNJk5Ef0zhu8JSGuwiSZ6_-Pzmfp0mc8i6d794prOh2IHEBxlWkmcdsiVTGzg&usqp=CAU'
-    },
-    {
-        name : 'infinix',        
-        price : '70000',
-        image : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYZmifZ62P00TSM4tl5pYgPYgTe67Y0lsRRyR8Hgat4ESNV0R-gujPQiyEqsBKV57SmDI&usqp=CAU'
-    },
-    {
-        name : 'redme',
-        price : '35000',
-        image : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScIzcZITOwbF8tBhdj81jTdx6zuJyuCQ5nlbUEhJkiudE6f_oH6aycuGzS4MtDMVIZktY&usqp=CAU'
-    },
-    {
-        name : 'samsung',
-        price : '600000',
-        image : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT67zPtGIDhUmmdsbnq_4iMLYbyJtiVXaRuKEmTJxZStlSymggKP_24YvLRjGquEW2yQZ4&usqp=CAU'
-    },
-    {
-        name : 'IPhone',
-        price : '270000',
-        image : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVRoAk_e0lwzAAfXF7J03Fxs9V8zMCggfGLTAkECInv1xKr0sZis6OThGdTTgCfe9zhZM&usqp=CAU'
-    }
-]
-let mob_data = '';
-        arr.forEach(function(data, index){
-            
-            mob_data = mob_data + `
-        <tr>
-                    <td>${index+1}</td>
-                    <td>${data.name}</td>
-                    <td>${data.price}</td>
-                    <td><img <style ='height : 50px' src='${data.image}'></td>
-                </tr>
-        `
-        })
-        
+      function displayCards() {
+        let str = "";
+        arr.forEach(function (data, index) {
+          str += `
+    <div class="col-3 mt-2">
+          <div class="card">
+            <img style="height : 350px; margin-bottom: 20px;" src=${data.image} alt="img"> 
+            <div class="d-flex flex-column align-items-center">
+              <h3 class="text-center">${data.name}</h3>
+              <p class="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci, ratione!</p>
+              <p class="text-center">RS : ${data.price}</p>
+              <button onclick='addtocart(${JSON.stringify(data.name)},${
+            data.price
+          }, 1)' class="btn btn-primary">add to cart</button>
 
-        let tbody = document.querySelector('#tbody');
-        tbody.innerHTML = mob_data;
+            </div>
+          </div>
+        </div>
+        `;
+          document.querySelector(".row").innerHTML = str;
+        });
+      }
+      displayCards();
+
+      //add to cart
+
+      var cart = [];
+      let total = 0;
+
+      function addtocart(name, price, qty) {
+        cart = JSON.parse(localStorage.getItem("carty"));
+        total = JSON.parse(localStorage.getItem("total"));
+        if (cart == null || total == null) {
+          cart = [];
+          total = 0;
+        }
+        let existenceItems = cart.find((data) => data.name == name);
+        if (existenceItems) {
+          existenceItems.qty += 1;
+          total += existenceItems.price;
+          localStorage.setItem("carty", JSON.stringify(cart));
+          localStorage.setItem("total", total);
+        } else {
+          cart.push({ name: name, price: price, qty: qty });
+          total += price;
+          localStorage.setItem("carty", JSON.stringify(cart));
+          localStorage.setItem("total", total);
+        }
+
+        updateCarts();
+      }
+
+      function updateCarts() {
+        cart = JSON.parse(localStorage.getItem("carty"));
+        total = JSON.parse(localStorage.getItem("total"));
+        if (cart == null || total == null) {
+          cart = [];
+          total = 0;
+        }
+        if(cart.length > 0){
+          document.querySelector('#clearCart').style.display = 'block'
+        }else{
+          document.querySelector('#clearCart').style.display = 'none'
+        }
+        document.querySelector("#cardLength").innerHTML = cart.length;
+
+        let str1 = "";
+        cart.forEach(function (data, index) {
+          str1 += `
+      <li class="d-flex justify-content-between"><div>${data.name} | RS ${data.price} </div><div><button onclick='increment(${index}, ${data.price}, ${data.qty})' class="btn btn-info text-white">+</button><span> ${data.qty}</span><button onclick='decrement(${index}, ${data.price}, ${data.qty})' class="btn btn-info text-white my-1">-</button></div></li>
+      `;
+        });
+
+        document.querySelector("#card-items").innerHTML = str1;
+        document.querySelector("#totalBill").innerHTML = total;
+      }
+      updateCarts();
+
+      function increment(index, price, qty) {
+        cart = JSON.parse(localStorage.getItem("carty"));
+        total = JSON.parse(localStorage.getItem("total"));
+        cart[index].qty += 1;
+        total += price;
+        localStorage.setItem("carty", JSON.stringify(cart));
+        localStorage.setItem("total", total);
+        updateCarts();
+      }
+
+      function decrement(index, price, qty) {
+        cart = JSON.parse(localStorage.getItem("carty"));
+        total = JSON.parse(localStorage.getItem("total"));
+        if (cart[index].qty === 1) {
+          cart.splice(index, 1);
+          total = total - price;
+          localStorage.setItem("carty", JSON.stringify(cart));
+          localStorage.setItem("total", total);
+          updateCarts();
+        } else {
+          cart[index].qty = cart[index].qty - 1;
+          total = total - price;
+          localStorage.setItem("carty", JSON.stringify(cart));
+          localStorage.setItem("total", total);
+          updateCarts();
+        }
+      }
+
+      function clearCart() {
+        localStorage.removeItem("cart");
+        localStorage.removeItem('total');
+        updateCarts()
+      }
     </script>
-</body>
+  </body>
 </html>
